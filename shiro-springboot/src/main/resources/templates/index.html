@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,5 +8,20 @@
 <body>
 <h1>首页</h1>
 <p th:text="${msg}"></p>
+
+<hr>
+<!--从Seeion中判断值-->
+<div th:if="${session.loginUser==null}">
+<p>
+    <a th:href="@{/tologin}">登录</a>
+</p>
+</div>
+<!--验证当前用户是否拥有指定权限。 -->
+<div shiro:hasPermission="user:add">
+<a th:href="@{/user/add}">Add</a>
+</div>
+<div shiro:hasPermission="user:update">
+<a th:href="@{/user/update}">Update</a>
+</div>
 </body>
 </html>
